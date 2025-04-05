@@ -1,0 +1,13 @@
+[
+    {
+      "id": 1,
+      "name": "Dormitory",
+      "charges": "200",
+      "facilities": "Non AC",
+      "link": "https://docs.google.com/forms/d/e/1FAIpQLSem3RxJ_VbMHyyz-xyneGaHZOtOT-JHF6Bplj5NG8NbPqpoRQ/viewform?pli=1",
+      "images": [
+        "/dorm-poster.webp",
+        "/dorm-photo.webp"
+      ]
+    }
+  ]

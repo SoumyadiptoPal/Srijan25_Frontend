@@ -1,5 +1,4 @@
 import "./cards.css"
-import React from 'react'
 import toast from "react-hot-toast";
 
 const notify = () => toast("Coming soon!");
@@ -60,15 +59,21 @@ function Cards() {
       text: "Merchandise",
       link: "/merchandise",
       live: true
+    },
+    {
+      image: "/accommodation/dorm-photo.webp",
+      text: "Accommodation",
+      link: "/accommodation",
+      live: true
     }
   ]
 
   return (
     <div className='min-h-[70vh] grid place-items-center w-full relative pb-8'>
-      <div className='absolute w-5/7 sm:w-3/5 h-full border-greyBorder border-l border-r'>
-        <div className='h-full w-1/2 border-greyBorder sm:border-r'></div>
+      <div className='absolute w-5/7 sm:w-3/5 h-full border-greyBorder border-l border-r flex justify-center'>
+        <div className='h-full w-[1px] mr-[2px] bg-greyBorder'></div>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-4 place-items-center gap-6 z-50 sm:w-11/12'>
+      <div className='grid grid-cols-1 sm:grid-cols-5 place-items-center gap-6 z-50 sm:w-11/12'>
         {cardDetails.map((card, ind) => (
           <Card card={card} key={ind} />
         ))}

@@ -5,6 +5,7 @@ import Footer from "../Footer"
 import PageReveal from "../PageReveal"
 import Carousel from "./Carousel"
 import { Helmet } from "react-helmet-async"
+import { Link } from 'react-router-dom'
 
 function Loading() {
   return <div className="h-screen w-screen bg-background fixed z-[300]">
@@ -30,10 +31,21 @@ function WorkshopPage() {
         {workshops.map(workshop =>
           <div key={workshop.id} className='flex flex-col items-center'>
             <Carousel workshop={workshop} />
-            <p className='w-full sm:w-3/5 text-[0.925rem] sm:text-base border-greyBorder border-t sm:border border-b-transparent p-4 sm:p-6 sm:text-justify'>{workshop.about}</p>
+            <div className='flex flex-col gap-y-4 w-full sm:w-3/5 text-[0.925rem] sm:text-base border-greyBorder border-t sm:border border-b-transparent p-4 sm:p-6 sm:text-justify'>
+              {workshop.about.map((item, ind) =>
+                <p>{item}</p>
+              )}
+              <div className='flex flex-col gap-y-1'>
+                {workshop.date && <p>Date: {workshop.date}</p>}
+                {workshop.venue && <p>Venue: {workshop.venue}</p>}
+              </div>
+              {workshop.link && <p>
+                Limited Seats,&nbsp;
+                <Link className='underline underline-offset-3' to={"https://forms.gle/MsQz23fcVdZr3xLe7"}>Register Now!</Link>
+              </p>}
+            </div>
           </div>
         )}
-        <h1 className="w-full border-greyBorder border-b-transparent border-t sm:border text-2xl sm:text-4xl text-center p-4">More Workshops Coming Soon!</h1>
         <Footer />
       </div>
     </Suspense>

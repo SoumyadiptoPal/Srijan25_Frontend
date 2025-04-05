@@ -23,6 +23,7 @@ import { logoutCall } from "./services/http/auth";
 import { uri } from "./config/endpoints";
 import AdminPage from "./components/Admin/AdminPage";
 import AdminLogin from "./components/Admin/AdminLogin";
+import AccommodationPage from "./components/accommodation/AccommodationPage";
 
 const Referral = lazy(() => import("./components/login/Referral"));
 
@@ -103,6 +104,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/workshop" element={<WorkshopPage />} />
+          <Route path="/accommodation" element={<AccommodationPage />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/details" element={<AdminPage />} />

@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import eventData from "../Events/allevents/data.json"; // Adjust path if necessary
 import {
   TextField,
   Button,
   Box,
   Typography,
-  Paper,
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
 //import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
-import image from "/src/assets/icons/mascot.svg";
+// import { useWindowSize } from "react-use";
 import { env } from "../../config/config";
 import axios from "axios";
 import { useEffect } from "react";
@@ -32,7 +31,7 @@ const TeamMembers = ({ membersEmails, setMembersEmails, maxMembers }) => {
   };
 
   // Check if the current email is a duplicate (case insensitive)
-  const isDuplicate = (email, index) => {
+  const isDuplicate = (email) => {
     return (
       membersEmails.filter(
         (e) => e.trim().toLowerCase() === email.trim().toLowerCase(),
@@ -162,7 +161,7 @@ const TeamMembers = ({ membersEmails, setMembersEmails, maxMembers }) => {
   );
 };
 
-const GroupInfo = ({ userId, eventID, refresh, setRefresh }) => {
+const GroupInfo = ({ eventID, refresh, setRefresh }) => {
   const [groupInfo, setGroupInfo] = useState({});
   const getGroupInfoForEvent = async () => {
     try {
@@ -313,7 +312,7 @@ const GroupInfo = ({ userId, eventID, refresh, setRefresh }) => {
             </svg>
           </div>
           <p className="text-base md:text-lg font-medium text-gray-300 text-center">No group information available</p>
-          <p className="text-sm text-gray-400 mt-2 text-center">You haven't joined a group yet or the data is still loading.</p>
+          <p className="text-sm text-gray-400 mt-2 text-center">You haven&apos;t joined a group yet or the data is still loading.</p>
         </div>
       )}
     </div>
@@ -327,7 +326,6 @@ const BackButton = ({ eventSlug }) => {
   }
   return (
     <button
-      variant="outlined"
       onClick={handleBack}
       className="text-lg border border-greyBorder px-2 py-3 rounded-sm self-end">
       Back
@@ -337,9 +335,10 @@ const BackButton = ({ eventSlug }) => {
 }
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { width, height } = useWindowSize();
+  // const { width, height } = useWindowSize();
   const userId = localStorage.getItem("sid");
-  //console.log({ userId });
+  const [isVerified, setIsVerified] = useState(false);
+
   const navigate = useNavigate();
   if (!userId) {
     navigate("/login");
@@ -439,6 +438,13 @@ const App = () => {
   };
 
   const handleRegister = async () => {
+
+    if(!isVerified){
+      toast("Please verify email in Dashboard before registering.");
+      redirect("/dashboard");
+      return;
+    }
+
     const payload = {
       userId: userId, // Adjust this as needed
       membersEmails: membersEmails,
@@ -512,6 +518,13 @@ const App = () => {
     }
   };
   const acceptInvitation = async () => {
+
+    if(!isVerified){
+      toast("Please verify email in Dashboard before registering.");
+      redirect("/dashboard");
+      return;
+    }
+
     try {
       setIsLoading(true);
       const response = await axios.post(
@@ -571,9 +584,10 @@ const App = () => {
   const fetchParticipationStatusForUseEffect = async () => {
     setLoading(true);
     let status = await getParticipationStatus();
-    let { email } = await getUserById(userId);
+    let { email, emailVerified } = await getUserById(userId);
     setEmail(email);
-    console.log(status);
+    setIsVerified(emailVerified);
+    // console.log(status);
     setParticipationStatus(status);
     setLoading(false);
   };

@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import { ReactTyped } from "react-typed";
-import Snowfall from "react-snowfall";
+// import Snowfall from "react-snowfall";
 import { Helmet } from "react-helmet-async";
 import "./styles.css";
 import eventData from "../Events/allevents/data.json"; 
@@ -15,7 +15,8 @@ import { getImageUrl } from "../../utils/image-util"; //
 const Navbar = lazy(() => import("../Navbar"));
 const Footer = lazy(() => import("../Footer"));
 const PageReveal = lazy(() => import("../PageReveal"));
-
+//Cursor  effect(Rainbow) here added
+// const RainbowCursor =lazy(() => import ("./RainbowCursor"));
 function Loading() {
   return (
     <div className="h-screen w-screen bg-background fixed z-[300] flex items-center justify-center">
@@ -88,13 +89,13 @@ const FancyButton = React.memo(({ active, onClick, children }) => {
 const GridLines = React.memo(() => (
   <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
     {/* Vertical decorative lines */}
-    <div className="absolute top-0 left-[20%] w-[0.1px] h-full bg-white"></div>
-    <div className="absolute top-0 left-[50%] w-[0.1px] h-full bg-white"></div>
-    <div className="absolute top-0 left-[80%] w-[0.1px] h-full bg-white"></div>
+    <div className="absolute top-0 left-[20%] w-[0.1px] h-full bg-greyBorder"></div>
+    <div className="absolute top-0 left-[50%] w-[0.1px] h-full bg-greyBorder"></div>
+    <div className="absolute top-0 right-[20%] mr-[1px] w-[0.1px] h-full bg-greyBorder"></div>
   </div>
 ));
 
-/* CategoryTabs Component with blurred background */
+
 const CategoryTabs = ({ activeCategory, onCategoryChange }) => {
   const categories = [
     "all",
@@ -125,7 +126,7 @@ const CategoryTabs = ({ activeCategory, onCategoryChange }) => {
 /* EventCardGrid Component with glassmorphism container and scroll */
 const EventCardGrid = ({ events, truncateText, onCardClick }) => {
   return (
-    <div className="max-w-[1600px] mx-auto p-6 rounded-2xl shadow-2xl bg-white/2 backdrop-blur-sm border h-[80vh] overflow-y-auto">
+    <div className="max-w-[1600px] mx-auto p-6 rounded-2xl shadow-2xl bg-white/2 backdrop-blur-sm border">
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-17">
         {events.map((event) => (
           <div
@@ -139,7 +140,7 @@ const EventCardGrid = ({ events, truncateText, onCardClick }) => {
               alt={event.title}
               className="w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-110"
             />
-            <div className="absolute left-0 right-0 bottom-0 p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute left-0 right-0 bottom-0 p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/60">
               <h3 className="text-xl font-bold mb-1">{event.title}</h3>
               <p className="text-sm">{truncateText(event.description, 310)}</p>
             </div>
@@ -150,7 +151,7 @@ const EventCardGrid = ({ events, truncateText, onCardClick }) => {
   );
 };
 
-/* Main Events Component */
+
 const Events = () => {
   const truncateText = useCallback((text, maxLength = 310) => {
     if (!text) return "";
@@ -206,6 +207,7 @@ const Events = () => {
     <Suspense fallback={<Loading />}>
       <div className="font-sometypeMono">
         <Navbar />
+        {/* <RainbowCursor /> */}
         <PageReveal />
         <Helmet>
           <link rel="canonical" href="https://srijanju.in/events" />
@@ -217,7 +219,7 @@ const Events = () => {
         </Helmet>
         <div className="relative bg-gradient-to-r from-background to-background text-white min-h-screen py-2 px-2">
           <GridLines />
-          <Snowfall color="white" snowflakeCount={100} />
+          {/* <Snowfall color="white" snowflakeCount={100} /> */}
           <header className="max-w-9xl mx-auto text-center mb-6">
             <h1 className="text-4xl md:text-xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-red-500 to-blue-600 drop-shadow-2xl">
               <ReactTyped
@@ -232,7 +234,7 @@ const Events = () => {
             activeCategory={activeCategory}
             onCategoryChange={handleCategoryChange}
           />
-          <section className="max-w-md mx-auto mb-10">
+          <section className="max-w-md mx-auto mb-10 ">
             <div className="relative">
               <input
                 type="text"

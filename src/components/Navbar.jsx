@@ -49,8 +49,8 @@ function Navbar() {
         <a className={`relative hidden sm:block w-fit cursor-pointer`} href="/notifications">Notifications
           <div className={`absolute h-[2px] bg-gradient-to-l from-red to-purple bottom-0 ${pathname == "notifications" ? 'w-full' : 'w-0'}`}></div>
         </a>
-        <a href="/workshop" className={`relative hidden sm:block w-fit`}>Workshop
-          <div className={`absolute h-[2px] bg-gradient-to-l from-red to-purple bottom-0 ${pathname == "workshop" ? 'w-full' : 'w-0'}`}></div>
+        <a href="/accommodation" className={`relative hidden sm:block w-fit`}>Accommodation
+          <div className={`absolute h-[2px] bg-gradient-to-l from-red to-purple bottom-0 ${pathname == "accommodation" ? 'w-full' : 'w-0'}`}></div>
         </a>
       </div>
       <div className='grid place-items-center text-xl'>
@@ -77,6 +77,7 @@ function Navbar() {
           <a href='/notifications' className='text-left border-greyBorder/30 border-b w-full py-1'>Notifications</a>
           <a href='https://docs.google.com/forms/d/e/1FAIpQLSe-zoCeE50FR2dUzauh7wfvHxfHczPwgziqYhRju2zMLH164A/viewform' className='text-left border-greyBorder/30 border-b w-full py-1'>Campus Ambassadors</a>
           <a href='/workshop' className='text-left border-greyBorder/30 border-b w-full py-1'>Workshop</a>
+          <a href='/accommodation' className='text-left border-greyBorder/30 border-b w-full py-1'>Accommodation</a>
           <a href='/merchandise' className='text-left border-greyBorder/30 border-b w-full py-1'>Merchandise</a>
           <a href={`${loggedIn ? '/dashboard' : '/login'}`} className='text-left border-greyBorder/30 border-b w-full py-1'>{loggedIn ? 'Dashboard' : 'Login'}</a>
         </div >

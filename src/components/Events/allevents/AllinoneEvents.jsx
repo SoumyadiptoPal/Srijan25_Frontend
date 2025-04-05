@@ -11,6 +11,7 @@ import {
   FaFacebookF,
   FaWhatsapp,
 } from "react-icons/fa";
+import Confetti from "../Confetti"
 import { MdShare } from "react-icons/md";
 import { ReactTyped } from "react-typed";
 import { useParams, useNavigate } from "react-router-dom";
@@ -227,7 +228,7 @@ const AllEvents = () => {
 
   const organizersTitle = "EVENT ORGANIZERS";
   const staticLineClasses =
-    "absolute top-0 h-full w-px bg-white opacity-50 z-0 transition duration-300";
+    "absolute top-0 h-full w-px bg-greyBorder z-0 transition duration-300";
 
   const notify = () => toast.success("Link copied to clipboard!");
 
@@ -236,6 +237,7 @@ const AllEvents = () => {
       <Suspense fallback={<Loading />}>
         <div className="font-sometypeMono">
           <Navbar />
+          {/* <Confetti/> */}
         </div>
         <PageReveal />
         <Helmet>
@@ -248,11 +250,11 @@ const AllEvents = () => {
         </Helmet>
         <div
           ref={containerRef}
-          className="relative bg-black text-white p-4 md:p-6 min-h-screen font-mono overflow-x-hidden"
+          className="relative bg-background text-white p-4 md:p-6 min-h-screen font-sometypeMono overflow-x-hidden"
         >
           {/* Static Vertical Lines */}
-          <div className={`${staticLineClasses} left-[5%] sm:left-[3%]`}></div>
-          <div className={`${staticLineClasses} right-[5%] sm:right-[3%]`}></div>
+          <div className={`${staticLineClasses} left-[5%] sm:left-[20%]`}></div>
+          <div className={`${staticLineClasses} right-[5%] sm:right-[20%]`}></div>
 
           {/* Overlay Element */}
           <div
@@ -291,7 +293,7 @@ const AllEvents = () => {
             {/* Grid for Left & Right Sections */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left: Registration Card */}
-              <div className="border p-8 rounded-lg text-center">
+              <div className="border p-8 rounded-lg text-center bg-background">
                 <img
                   src={getImageUrl(eventData.eventPoster)}
                   alt={eventData.eventName}
@@ -361,7 +363,7 @@ const AllEvents = () => {
 
               {/* Right: Event Details, Prize Pool & Description */}
               <div className="space-y-6">
-                <div className="border p-8 rounded-lg">
+                <div className="border p-8 rounded-lg bg-background">
                   <h3 className="text-lg md:text-2xl font-bold flex items-center gap-2 text-red-500">
                     <FaCalendarAlt /> EVENT DETAILS
                   </h3>
@@ -382,7 +384,7 @@ const AllEvents = () => {
                     {eventDetails.teamSize}
                   </p>
                 </div>
-                <div className="border p-8 rounded-lg">
+                <div className="border p-8 rounded-lg bg-background">
                   <h3 className="text-lg md:text-2xl font-bold flex items-center gap-2 text-red-500">
                     <FaTrophy /> PRIZE POOL
                   </h3>
@@ -405,7 +407,7 @@ const AllEvents = () => {
                     </span>
                   </p>
                 </div>
-                <div className="border p-8 rounded-lg">
+                <div className="border p-8 rounded-lg bg-background">
                   <h3 className="text-lg md:text-xl font-bold text-blue-400 flex items-center gap-2">
                     <FaGamepad /> EVENT DESCRIPTION
                   </h3>
@@ -416,7 +418,7 @@ const AllEvents = () => {
 
             {/* Event Format */}
             {eventData.eventFormat && (
-              <div className="border p-8 mt-6 md:mt-8 rounded-lg">
+              <div className="border p-8 mt-6 md:mt-8 rounded-lg bg-background">
                 <h3 className="text-lg md:text-2xl font-bold text-center text-blue-400">
                   EVENT FORMAT
                 </h3>
@@ -426,7 +428,7 @@ const AllEvents = () => {
 
             {/* Submission Criteria */}
             {eventData.submissionCriteria && (
-              <div className="border p-8 mt-6 md:mt-8 rounded-lg">
+              <div className="border p-8 mt-6 md:mt-8 rounded-lg bg-background">
                 <h3 className="text-lg md:text-2xl font-bold text-center text-blue-400">
                   SUBMISSION CRITERIA
                 </h3>
@@ -463,7 +465,7 @@ const AllEvents = () => {
 
             {/* Google Drive Link */}
             {eventData.driveLink && (
-              <div className="border p-8 mt-6 md:mt-8 rounded-lg text-center shadow-2xl bg-gradient-to-brtransform hover:scale-105 transition duration-500 ease-in-out">
+              <div className="border p-8 mt-6 md:mt-8 rounded-lg text-center shadow-2xl bg-background hover:scale-105 transition duration-500 ease-in-out">
                 <h3 className="text-lg md:text-xl font-bold text-green-700 flex items-center justify-center gap-2 animate-pulse">
                   <SiGoogledrive className="text-green-600" /> Event Brochure
                 </h3>
@@ -483,7 +485,7 @@ const AllEvents = () => {
             {/* Event Rules */}
             <div
               ref={rulesRef}
-              className="border p-8 mt-6 md:mt-8 rounded-lg transition duration-300"
+              className="border p-8 mt-6 md:mt-8 rounded-lg transition duration-300 bg-background"
             >
               <h3 className="text-2xl md:text-3xl font-bold text-center animate-rainbow">
                 EVENT RULES
@@ -496,7 +498,7 @@ const AllEvents = () => {
             </div>
 
             {/* Event Organizers */}
-            <div className="border p-8 mt-6 md:mt-8 rounded-lg">
+            <div className="border p-8 mt-6 md:mt-8 rounded-lg bg-background">
               <h3 className="text-lg md:text-2xl font-bold text-center text-blue-400">
                 {organizersTitle}
               </h3>
@@ -584,4 +586,3 @@ const AllEvents = () => {
 };
 
 export default AllEvents;
-

@@ -1,8 +1,25 @@
 [
   {
     "id": 1,
+    "name": "MLverse",
+    "about": [
+      "Want to break into GenAI but don’t know where to start? MLverse is your chance to learn from industry experts in a beginner-friendly, hands-on workshop! Explore the evolution of AI—from Machine Learning (ML) to Deep Learning (DL) to Generative AI (GenAI). Discover how Fine-Tuning refines AI for specific tasks and how Retrieval-Augmented Generation (RAG) enhances AI by fetching real-time information for smarter responses.",
+      "The highlight? A hands-on RAG project where you'll apply what you learn to build a smarter AI system. Plus, earn a SRIJAN certificate to showcase your skills!",
+      "No prior experience? No problem! Learn, build, and leave with real AI expertise."
+    ],
+    "images": [
+      "/mlverse/1.jpg",
+      "/mlverse/2.jpg"
+    ],
+    "date": "29th March, 10AM - 6PM",
+    "venue": "TEQIP Building, Jadavpur University"
+  },
+  {
+    "id": 2,
     "name": "Finance 360°",
-    "about": "The FINANCE 360° workshop held on 8th and 9th February, 2025 about 10+ hours of finance weekend was a success offering a blend of monetary knowledge to 50 participants. The event covered personal Finance (Day 1) and corporate Finance (Day 2) with renowned guest speakers Prannay Kedia and Samrat Sarkar. Participants learned about maintaining balance sheets, financial modeling, managing assets and liabilities and trading and investments.",
+    "about": [
+      "The FINANCE 360° workshop held on 8th and 9th February, 2025 about 10+ hours of finance weekend was a success offering a blend of monetary knowledge to 50 participants. The event covered personal Finance (Day 1) and corporate Finance (Day 2) with renowned guest speakers Prannay Kedia and Samrat Sarkar. Participants learned about maintaining balance sheets, financial modeling, managing assets and liabilities and trading and investments."
+    ],
     "images": [
       "/finance-360/1.jpg",
       "/finance-360/2.jpg",
@@ -10,9 +27,11 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "name": "Statera",
-    "about": "The Statera workshop held on 15th and 16th February, 2025 about 15+ hours a collaboration with JUMTC (Jadavpur University Mechatronics Club) saw active participation from 130+ students across all departments of JU and other colleges in Kolkata. Participants gained hands-on experience and knowledge in building a self-balancing bot. Necessary kits and instruments were provided to each teams with 4 participants, making the workshop a fulfilling and exciting experience, fueling long-lasting enthusiasm among the participants.",
+    "about": [
+      "The Statera workshop held on 15th and 16th February, 2025 about 15+ hours a collaboration with JUMTC (Jadavpur University Mechatronics Club) saw active participation from 130+ students across all departments of JU and other colleges in Kolkata. Participants gained hands-on experience and knowledge in building a self-balancing bot. Necessary kits and instruments were provided to each teams with 4 participants, making the workshop a fulfilling and exciting experience, fueling long-lasting enthusiasm among the participants."
+    ],
     "images": [
       "/statera/1.jpg",
       "/statera/2.jpg",

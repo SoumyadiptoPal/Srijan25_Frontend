@@ -18,29 +18,31 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import toast from "react-hot-toast";
+import { uri } from "../config/endpoints";
 
-const priceFetcher = async (setPrice) => {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  try {
-    const response = await fetch(`${backendUrl}/api/V1/merch/checkDiscount`);
-    if (response.ok) {
-      setPrice(319);
-      return;
-    }
-    setPrice(349);
-  } catch (err) {
-    console.log(err);
-    setPrice(349);
-  }
-};
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 const colors = ["White", "Black"];
 
+const verifyToken = async (token, setUser) => {
+  const response = await fetch(`${uri.resources.USERS}/${token}`, {
+    credentials: 'include'
+  });
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    localStorage.removeItem("sid");
+    redirect("/login");
+    return null;
+  }
+};
 export default function MerchandisePage() {
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState("Black");
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [isUserChecking, setIsUserChecking] = useState(false);
   const imgLink = [
     "/merchandise/tshirt1.png",
     "/merchandise/tshirt2.png",
@@ -62,20 +64,31 @@ export default function MerchandisePage() {
     },
   ];
   const qrValue = "upi://pay?pa=user@upi&pn=User&mc=123456&tid=9876543210";
-
   const [price, setPrice] = useState(349);
-  // useEffect(() => {
-  //   priceFetcher(setPrice);
-  // }, [])
 
   const navigate = useNavigate();
-  const handleOrderClick = () => {
-    const userId = localStorage.getItem("sid");
-    console.log({ userId });
-    if (!userId) {
+  const handleOrderClick = async () => {
+    setIsUserChecking(true);
+    const token = localStorage.getItem("sid");
+    if (!token) {
+      setIsUserChecking(false);
       navigate("/login");
       // return;
     }
+    // verify whether user is logged in or not
+    const userDetails = await verifyToken(token);
+
+    if (!userDetails) {
+      setIsUserChecking(false);
+      navigate("/login");
+    }
+
+    if(!userDetails.emailVerified){
+      setIsUserChecking(false);
+      toast("Email not verified !!")
+      return;
+    }
+    setIsUserChecking(false);
     setShowOrderForm(true);
   };
 
@@ -253,7 +266,7 @@ export default function MerchandisePage() {
 
           {/* Order Button - Centered on mobile */}
           <div className="flex justify-center md:justify-start md:absolute md:top-80 md:left-2/5">
-            <button className="focus:outline-none" onClick={handleOrderClick}>
+            <button className="focus:outline-none" onClick={handleOrderClick} disabled={isUserChecking}>
               <img
                 src="/merchandise/orderbutton.svg"
                 alt="Place Your Order"

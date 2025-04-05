@@ -105,16 +105,8 @@ const Signup = ({ user }) => {
   };
 
   const onFailLogin = function (error) {
-    console.error("Login failed:", error);
-
-    if (!error?.response?.data) {
-      setMessage("An unexpected error occurred. Please try again.");
-      return;
-    }
-
-    const errorMessage = error.response.data.error || "Unknown error occurred.";
-    console.log(errorMessage);
-    setMessage(errorMessage);
+      console.error("Login failed:", error);
+      toast.error("Login Rejected!")
   };
 
   const handleSubmit = async (e) => {

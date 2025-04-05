@@ -8,9 +8,11 @@ const QR2 = "/merchandise/regularQR.jpeg";
 function OrderForm({ setShowOrderForm, size, color }) {
   const [loading, setLoading] = useState(false); // change to true if loading image dynamically
   const [qrLink, setQrLink] = useState(QR1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Extract form data
     const formData = new FormData(e.target);
@@ -21,15 +23,19 @@ function OrderForm({ setShowOrderForm, size, color }) {
     const college = formData.get("college");
     const department = formData.get("department");
     const year = formData.get("year");
+    const contact = formData.get("contact");
+    const campus = formData.get("campus");
 
     // toast([color, size]);
     // Validate the input
     if (!nameOnShirt.trim()) {
       toast("Please enter a name for the shirt.");
+      setIsSubmitting(false);
       return;
     }
     if (!paymentProof || paymentProof.size === 0) {
       toast("Please upload a payment proof image.");
+      setIsSubmitting(false);
       return;
     }
 
@@ -46,7 +52,8 @@ function OrderForm({ setShowOrderForm, size, color }) {
       uploadFormData.append("year", year);
       uploadFormData.append("size", size);
       uploadFormData.append("color", color);
-      // console.log(uploadFormData);
+      uploadFormData.append("contact", contact);
+      uploadFormData.append("campus", campus);
 
       // Send the image to your backend API
       const response = await fetch(`${backendUrl}/api/v1/merch/submitImage`, {
@@ -78,6 +85,8 @@ function OrderForm({ setShowOrderForm, size, color }) {
     } catch (error) {
       console.error("Error submitting order:", error);
       toast("An error occurred while submitting your order.");
+    }finally{
+      setIsSubmitting(false);
     }
   };
   const handleCloseForm = () => {
@@ -189,6 +198,43 @@ function OrderForm({ setShowOrderForm, size, color }) {
                   required
                 />
               </div>
+              <div className="mb-4">
+                <label
+                  className="block text-sm font-medium mb-2"
+                  htmlFor="department"
+                >
+                  Contact No
+                </label>
+                <input
+                  type="tel"
+                  id="contact"
+                  name="contact"
+                  className="w-full p-2 bg-[#1c1c1c] border border-gray-500 rounded focus:outline-none focus:ring-1 focus:ring-white"
+                  required
+                  minLength={10}
+                  maxLength={10}
+                  pattern="[0-9]{10}"
+                  inputMode="numeric"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-sm font-medium mb-2"
+                  htmlFor="campus"
+                >
+                  Which campus?
+                </label>
+                <select
+                  id="campus"
+                  name="campus"
+                  className="w-full p-2 bg-[#1c1c1c] border border-gray-500 rounded focus:outline-none focus:ring-1 focus:ring-white"
+                  required
+                >
+                  <option value="">Select a campus</option>
+                  <option value="jadavpur">Jadavpur</option>
+                  <option value="saltlake">Salt Lake</option>
+                </select>
+              </div>
 
               <div className="mb-4">
                 <label
@@ -290,8 +336,9 @@ function OrderForm({ setShowOrderForm, size, color }) {
                 <button
                   type="submit"
                   className="px-4 py-2 bg-[#1c1c1c] border border-gray-500 rounded hover:bg-gray-700"
+                  disabled={isSubmitting}
                 >
-                  Submit Order
+                {isSubmitting ? 'Submitting...' : 'Submit Order'}
                 </button>
               </div>
             </form>

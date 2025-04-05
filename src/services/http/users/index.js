@@ -13,12 +13,9 @@ export const getUserById = (id, providerId = null) => {
 };
 
 export const editUser = (data) => {
-  if (!data.name) {
-    throw "Enter a valid name";
-  }
-  if (!data.phone) {
-    throw "Enter a valid phone";
-  }
+  // if (!data.name && !data.phone && !data.institution) {
+  //   throw "Enter the details";
+  // }
 
   return axios.put(CONST.uri.resources.EDIT_USERS, data, {  
     withCredentials: true, 
